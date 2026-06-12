@@ -12,5 +12,3 @@ router.post("/", createBoard);
 router.get("/:workspace_id", getBoardsByWorkspace);
 
 module.exports = router;
-// Serve frontend
-app.use(express.static(path.join(__dirname, "frontend")));

@@ -3,26 +3,23 @@ const jwt = require("jsonwebtoken");
 const pool = require("../config/db");
 
 // REGISTER
-const registerUser = async (req, res) => {
+const register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
-        const userCheck = await pool.query(
+        const userExists = await pool.query(
             "SELECT * FROM users WHERE email = $1",
             [email]
         );
 
-        if (userCheck.rows.length > 0) {
-            return res.status(400).json({
-                message: "User already exists"
-            });
+        if (userExists.rows.length > 0) {
+            return res.status(400).json({ message: "User already exists" });
         }
 
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = await pool.query(
-            "INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3) RETURNING *",
+            "INSERT INTO users (name, email, password_hash) VALUES ($1, $2, $3) RETURNING id, name, email",
             [name, email, hashedPassword]
         );
 
@@ -32,14 +29,13 @@ const registerUser = async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error.message);
+        console.log("REGISTER ERROR:", error);
         res.status(500).json({ message: "Server error" });
     }
 };
 
-
 // LOGIN
-const loginUser = async (req, res) => {
+const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -49,23 +45,18 @@ const loginUser = async (req, res) => {
         );
 
         if (user.rows.length === 0) {
-            return res.status(400).json({
-                message: "Invalid credentials"
-            });
+            return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        const validPassword = await bcrypt.compare(
+        const valid = await bcrypt.compare(
             password,
             user.rows[0].password_hash
         );
 
-        if (!validPassword) {
-            return res.status(400).json({
-                message: "Invalid credentials"
-            });
+        if (!valid) {
+            return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        // Create JWT token
         const token = jwt.sign(
             {
                 id: user.rows[0].id,
@@ -75,18 +66,12 @@ const loginUser = async (req, res) => {
             { expiresIn: "1d" }
         );
 
-        res.json({
-            message: "Login successful",
-            token
-        });
+        res.json({ token });
 
     } catch (error) {
-        console.error(error.message);
+        console.log("LOGIN ERROR:", error);
         res.status(500).json({ message: "Server error" });
     }
 };
 
-module.exports = {
-    registerUser,
-    loginUser
-};
+module.exports = { register, login };

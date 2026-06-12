@@ -17,5 +17,3 @@ router.get("/:column_id", getTasksByColumn);
 router.put("/:id", updateTask);
 
 module.exports = router;
-// Serve frontend
-app.use(express.static(path.join(__dirname, "frontend")));
