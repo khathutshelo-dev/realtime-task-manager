@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +15,7 @@ export class RegisterComponent {
   name = '';
   email = '';
   password = '';
-  message = ''; // ✅ FIX HERE
+  message = '';
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -26,12 +26,15 @@ export class RegisterComponent {
       password: this.password
     }).subscribe({
       next: () => {
-        this.message = 'Account created successfully ✔';
-        setTimeout(() => this.router.navigate(['/login']), 1000);
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         this.message = err.error.message || 'Registration failed';
       }
     });
+  }
+
+  goLogin() {
+    this.router.navigate(['/login']);
   }
 }
