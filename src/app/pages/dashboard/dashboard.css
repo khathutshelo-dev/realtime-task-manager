@@ -534,3 +534,12 @@ gap:10px;
 }
 
 }
+
+input[type="date"],
+input[type="time"]{
+  padding:12px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  width:100%;
+  margin-bottom:10px;
+}
