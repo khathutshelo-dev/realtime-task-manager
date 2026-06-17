@@ -1,44 +1,75 @@
-require("dotenv").config();
-
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const http = require("http");
-const path = require("path");
-
 const { Server } = require("socket.io");
+
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
 
-const io = new Server(server, {
-    cors: {
-        origin: "*"
-    }
-});
-
-app.use(cors());
+// ======================
+// MIDDLEWARE
+// ======================
 app.use(express.json());
 
+// ✅ FIXED CORS (CRITICAL FOR FETCH)
+app.use(
+  cors({
+    origin: [
+      "http://localhost:4200",
+      "https://realtime-task-manager-2.onrender.com"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
+
+// ======================
 // TEST ROUTE
+// ======================
 app.get("/", (req, res) => {
-    res.json({ message: "Realtime Task Manager API Running" });
+  res.json({ message: "Backend is running ✔" });
 });
 
+// ======================
 // ROUTES
+// ======================
 const authRoutes = require("./src/routes/authRoutes");
+const workspaceRoutes = require("./src/routes/workspaceRoutes");
+const boardRoutes = require("./src/routes/boardRoutes");
+const taskRoutes = require("./src/routes/taskRoutes");
+const columnRoutes = require("./src/routes/columnRoutes");
+
 app.use("/api/auth", authRoutes);
+app.use("/api/workspaces", workspaceRoutes);
+app.use("/api/boards", boardRoutes);
+app.use("/api/tasks", taskRoutes);
+app.use("/api/columns", columnRoutes);
 
-// SOCKET
-io.on("connection", (socket) => {
-    console.log("User Connected:", socket.id);
-
-    socket.on("disconnect", () => {
-        console.log("User Disconnected");
-    });
+// ======================
+// SOCKET.IO
+// ======================
+const io = new Server(server, {
+  cors: {
+    origin: "*"
+  }
 });
 
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+  });
+});
+
+// ======================
+// START SERVER
+// ======================
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
-    console.log(`Server Running on Port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
