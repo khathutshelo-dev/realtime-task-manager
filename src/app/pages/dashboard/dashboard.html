@@ -92,13 +92,13 @@
                 <h3>{{ task.text }}</h3>
 
                 <small>
-                    📅 Created: {{ task.createdAt }}
+                    Created: {{ task.createdAt }}
                 </small>
 
                 <br />
 
                 <small>
-                    ⏰ Due: {{ task.dueDate }} {{ task.dueTime }}
+                     Due: {{ task.dueDate }} {{ task.dueTime }}
                 </small>
 
             </div>
@@ -128,7 +128,7 @@
 
         <!-- EMPTY STATE -->
         <div *ngIf="tasks.length === 0" class="empty">
-            No active tasks yet 🚀
+            No active tasks yet.......
         </div>
 
     </div>
@@ -138,7 +138,7 @@
 
         <div class="bin-header">
 
-            <h2>🗑 Recycle Bin</h2>
+            <h2> Recycle Bin</h2>
 
             <button class="clear-btn" (click)="emptyBin()">
                 Empty Bin
