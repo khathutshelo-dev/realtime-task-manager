@@ -7,44 +7,27 @@
   </header>
 
   <section class="welcome">
-    <h3>Welcome 👋</h3>
-    <p>{{ userEmail }}</p>
-  </section>
-
-  <section class="cards">
-
-    <div class="card">
-      <h4>Total Tasks</h4>
-      <p>0</p>
-    </div>
-
-    <div class="card">
-      <h4>Completed</h4>
-      <p>0</p>
-    </div>
-
-    <div class="card">
-      <h4>Pending</h4>
-      <p>0</p>
-    </div>
-
+    <h3>Welcome {{ userEmail }}</h3>
   </section>
 
   <section class="task-section">
+
     <h3>Create Task</h3>
 
-    <input type="text" placeholder="Task title">
-    <button>Add Task</button>
+    <input
+      type="text"
+      [(ngModel)]="newTask"
+      placeholder="Enter task"
+    />
 
-    <p>No tasks yet</p>
-
-    <input [(ngModel)]="newTask" type="text" placeholder="Task title">
-<button (click)="addTask()">Add Task</button>
+    <button (click)="addTask()">Add Task</button>
 
     <ul>
-  <li *ngFor="let task of tasks">{{ task }}</li>
-</ul>
+      <li *ngFor="let task of tasks">
+        {{ task }}
+      </li>
+    </ul>
+
   </section>
-  
 
 </div>
