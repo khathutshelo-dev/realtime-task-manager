@@ -7,15 +7,22 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
 
-  private baseUrl = 'http://localhost:5000/api/auth';
+  // ✅ ONE CLEAN BASE URL (always works local + production)
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
+  // ========================
+  // LOGIN
+  // ========================
   login(data: any) {
-  return this.http.post(`${environment.apiUrl}/auth/login`, data);
-}
+    return this.http.post(`${this.baseUrl}/auth/login`, data);
+  }
 
+  // ========================
+  // REGISTER
+  // ========================
   register(data: any) {
-    return this.http.post(`${this.baseUrl}/register`, data);
+    return this.http.post(`${this.baseUrl}/auth/register`, data);
   }
 }
