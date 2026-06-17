@@ -69,7 +69,13 @@ io.on("connection", (socket) => {
 // START SERVER
 // ======================
 const PORT = process.env.PORT || 5000;
-console.log("DATABASE_URL:", process.env.DATABASE_URL ? "LOADED ✔" : "MISSING ❌");
+
+if (!process.env.DATABASE_URL) {
+  console.error("❌ DATABASE_URL is missing");
+} else {
+  console.log("✔ DATABASE_URL loaded");
+}
+
 
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
