@@ -1,175 +1,59 @@
-#  Real-Time Collaborative Task Manager
+# Frontend
 
-A full-stack **real-time task management system** inspired by Trello and Notion, built to demonstrate modern backend architecture, WebSocket communication, and collaborative workflows.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.1.
 
-This project enables multiple users to manage tasks in shared boards with **instant live updates**, drag-and-drop organization, and real-time synchronization across clients.
+## Development server
 
-
-## Live Features
-
-* Secure Authentication (JWT-based login & registration)
-* Workspace management (multi-team support structure)
-* Boards (project-level organization)
-* Columns (Kanban-style workflow)
-* Tasks (create, update, assign, prioritize, delete)
-* Real-time updates using Socket.io
-* Multi-user collaboration in shared boards
-* Live presence system (users connected to a board)
-* Activity logging (track all actions per board)
-* Drag & drop task movement (frontend integration)
-* PostgreSQL relational database design
-
-
-
-## 🛠 Tech Stack
-
-### Backend
-
-* Node.js
-* Express.js
-* Socket.io
-* JWT Authentication
-* PostgreSQL
-
-### Frontend
-
-* HTML5
-* CSS3
-* JavaScript (Vanilla)
-* Socket.io Client
-* SortableJS (drag & drop)
-
-
-## Real-Time System Architecture
-
-Frontend (Browser)
-      ↓
-Socket.io Client
-      ↓
-Node.js + Express Server
-      ↓
-PostgreSQL Database
-
-This system uses **WebSockets (Socket.io)** to broadcast updates instantly to all connected users in the same board.
-
-
-## Project Structure
-
-realtime-task-manager/
-│
-├── server.js
-├── package.json
-├── package-lock.json
-│
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   └── app.js
-│
-├── src/
-│   ├── config/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   └── sockets/
-```
-
-
-## 🚀 How to Run Locally
-
-### 1. Clone repository
+To start a local development server, run:
 
 ```bash
-git clone https://github.com/your-username/realtime-task-manager.git
-cd realtime-task-manager
+ng serve
 ```
 
-### 2. Install dependencies
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Code scaffolding
+
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
 ```bash
-npm install
+ng generate component component-name
 ```
 
-### 3. Setup environment variables
-
-Create a `.env` file:
-
-```env
-PORT=5000
-
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=your_password
-DB_NAME=taskmanager
-
-JWT_SECRET=your_secret_key
-
-
-### 4. Run the server
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
 ```bash
-node server.js
+ng generate --help
 ```
 
-or (recommended)
+## Building
+
+To build the project run:
 
 ```bash
-npx nodemon server.js
+ng build
+```
 
-### 5. Open in browser
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+## Running unit tests
 
-http://localhost:5000
+To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
 
+```bash
+ng test
+```
 
-##  Key Learning Outcomes
+## Running end-to-end tests
 
-This project demonstrates:
+For end-to-end (e2e) testing, run:
 
-* Building scalable REST APIs with Express
-* Designing relational databases with PostgreSQL
-* Implementing authentication with JWT
-* Real-time communication using Socket.io
-* Managing multi-user state synchronization
-* Full-stack application architecture
-* Event-driven backend systems
+```bash
+ng e2e
+```
 
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-##  Real-Time Features Explained
+## Additional Resources
 
-* When a user creates or moves a task → all connected users see updates instantly
-* Users join specific board “rooms” using Socket.io
-* Presence tracking shows how many users are online in a board
-* Activity logs track all important actions
-
-
-##  Future Improvements
-
-*  Mobile responsive UI redesign
-* Notifications system
-* Email alerts for task assignments
-* Live deployment (Render + Vercel)
-* Role-based access (Admin / Member)
-* Analytics dashboard
-
-
-##  Author
-
-**Built by:** Given Ramalivhana
- Computer Science Student (TUT)
-
-
-
-##  Why This Project Matters
-
-This project showcases:
-
-* Real-world backend engineering skills
-* WebSocket-based architecture
-* Database design understanding
-* Full-stack integration
-* Collaboration system design
-
-It is designed to reflect production-level thinking, not just CRUD operations.
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
