@@ -19,19 +19,11 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   login() {
-    this.auth.login({
-      email: this.email,
-      password: this.password
-    }).subscribe({
-      next: (res: any) => {
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/dashboard']);
-      },
-      error: (err) => {
-        this.message = err.error.message || 'Login failed';
-      }
-    });
-  }
+  // TEMP LOGIN BYPASS (NO BACKEND)
+  localStorage.setItem("token", "demo-token");
+
+  this.router.navigate(['/dashboard']);
+}
 
   goRegister() {
     this.router.navigate(['/register']);
