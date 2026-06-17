@@ -28,3 +28,13 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 }
+
+tasks: string[] = [];
+newTask: string = '';
+
+addTask() {
+  if (this.newTask.trim()) {
+    this.tasks.push(this.newTask);
+    this.newTask = '';
+  }
+}
