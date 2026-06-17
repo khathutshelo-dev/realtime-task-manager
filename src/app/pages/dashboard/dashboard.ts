@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
+interface Task {
+  text: string;
+  date: string;
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -12,31 +17,46 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  // ✅ PROPER VARIABLES
   newTask: string = '';
-  tasks: string[] = [];
-
-  userEmail: string = 'User';
+  tasks: Task[] = [];
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
-
     if (!token) {
       this.router.navigate(['/login']);
     }
-  }
 
-  // ✅ ADD TASK FUNCTION
-  addTask(): void {
-    if (this.newTask && this.newTask.trim().length > 0) {
-      this.tasks.push(this.newTask.trim());
-      this.newTask = '';
+    const saved = localStorage.getItem('tasks');
+    if (saved) {
+      this.tasks = JSON.parse(saved);
     }
   }
 
-  // ✅ LOGOUT FUNCTION
+  addTask(): void {
+    if (!this.newTask.trim()) return;
+
+    const task: Task = {
+      text: this.newTask,
+      date: new Date().toLocaleString()
+    };
+
+    this.tasks.push(task);
+    this.saveTasks();
+
+    this.newTask = '';
+  }
+
+  deleteTask(index: number): void {
+    this.tasks.splice(index, 1);
+    this.saveTasks();
+  }
+
+  saveTasks(): void {
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+  }
+
   logout(): void {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
