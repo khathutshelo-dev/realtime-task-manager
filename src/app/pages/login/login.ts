@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -31,5 +31,9 @@ export class LoginComponent {
         this.message = err.error.message || 'Login failed';
       }
     });
+  }
+
+  goRegister() {
+    this.router.navigate(['/register']);
   }
 }
