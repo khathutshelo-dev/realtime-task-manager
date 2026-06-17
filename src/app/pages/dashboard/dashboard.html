@@ -1,11 +1,42 @@
-<h1>
+<div class="dashboard-container">
 
-Realtime Task Manager
+  <header class="top-bar">
+    <h2>Realtime Task Manager</h2>
 
-</h1>
+    <button (click)="logout()">Logout</button>
+  </header>
 
-<p>
+  <section class="welcome">
+    <h3>Welcome 👋</h3>
+    <p>{{ userEmail }}</p>
+  </section>
 
-Dashboard Coming Soon...
+  <section class="cards">
 
-</p>
+    <div class="card">
+      <h4>Total Tasks</h4>
+      <p>0</p>
+    </div>
+
+    <div class="card">
+      <h4>Completed</h4>
+      <p>0</p>
+    </div>
+
+    <div class="card">
+      <h4>Pending</h4>
+      <p>0</p>
+    </div>
+
+  </section>
+
+  <section class="task-section">
+    <h3>Create Task</h3>
+
+    <input type="text" placeholder="Task title">
+    <button>Add Task</button>
+
+    <p>No tasks yet</p>
+  </section>
+
+</div>
