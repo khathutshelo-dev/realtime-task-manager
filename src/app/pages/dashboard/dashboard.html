@@ -1,245 +1,176 @@
 <div class="dashboard-container">
 
     <!-- HEADER -->
-
     <header class="header">
 
         <div>
-
             <h1>Task Manager Pro</h1>
-
-            <p>Stay organized and productive</p>
-
+            <p>Plan, track and manage your tasks professionally</p>
         </div>
 
         <button class="logout-btn" (click)="logout()">
-
             Logout
-
         </button>
 
     </header>
 
-
     <!-- STATS -->
-
     <div class="stats-grid">
 
         <div class="stat-card">
-
             <h2>{{ totalTasks }}</h2>
-
             <p>Total Tasks</p>
-
         </div>
 
         <div class="stat-card high">
-
             <h2>{{ highPriority }}</h2>
-
             <p>High Priority</p>
-
         </div>
 
         <div class="stat-card medium">
-
             <h2>{{ mediumPriority }}</h2>
-
             <p>Medium Priority</p>
-
         </div>
 
         <div class="stat-card low">
-
             <h2>{{ lowPriority }}</h2>
-
             <p>Low Priority</p>
-
         </div>
 
     </div>
 
-
-    <!-- ADD TASK -->
-
+    <!-- CREATE TASK -->
     <div class="task-form">
 
         <h2>Create New Task</h2>
 
+        <!-- TASK NAME -->
         <input
-
             [(ngModel)]="newTask"
-
-            placeholder="Enter your task..."
-
             type="text"
+            placeholder="Enter your task..."
+        />
 
-        >
-
+        <!-- PRIORITY -->
         <select [(ngModel)]="selectedPriority">
-
             <option>High</option>
-
             <option selected>Medium</option>
-
             <option>Low</option>
-
         </select>
 
+        <!-- DATE -->
+        <input
+            type="date"
+            [(ngModel)]="selectedDate"
+        />
+
+        <!-- TIME -->
+        <input
+            type="time"
+            [(ngModel)]="selectedTime"
+        />
+
         <button (click)="addTask()">
-
             Add Task
-
         </button>
 
     </div>
 
-
     <!-- ACTIVE TASKS -->
-
     <div class="task-list">
 
         <h2>Your Tasks</h2>
 
         <div
-
             *ngFor="let task of tasks; let i = index"
-
             class="task-card"
-
         >
 
+            <!-- LEFT SIDE -->
             <div class="task-left">
 
                 <h3>{{ task.text }}</h3>
 
                 <small>
+                    📅 Created: {{ task.createdAt }}
+                </small>
 
-                     {{ task.createdAt }}
+                <br />
 
+                <small>
+                    ⏰ Due: {{ task.dueDate }} {{ task.dueTime }}
                 </small>
 
             </div>
 
+            <!-- RIGHT SIDE -->
             <div class="task-right">
 
                 <span
-
                     class="priority"
-
-                    [class.high]="task.priority=='High'"
-
-                    [class.medium]="task.priority=='Medium'"
-
-                    [class.low]="task.priority=='Low'"
-
+                    [class.high]="task.priority === 'High'"
+                    [class.medium]="task.priority === 'Medium'"
+                    [class.low]="task.priority === 'Low'"
                 >
-
                     {{ task.priority }}
-
                 </span>
 
                 <button
-
                     class="delete-btn"
-
                     (click)="deleteTask(i)"
-
                 >
-
                     Delete
-
                 </button>
 
             </div>
 
         </div>
 
-        <div
-
-            *ngIf="tasks.length==0"
-
-            class="empty"
-
-        >
-
-            No active tasks.
-
+        <!-- EMPTY STATE -->
+        <div *ngIf="tasks.length === 0" class="empty">
+            No active tasks yet 🚀
         </div>
 
     </div>
 
-
     <!-- RECYCLE BIN -->
-
     <div class="bin-section">
 
         <div class="bin-header">
 
-            <h2>
+            <h2>🗑 Recycle Bin</h2>
 
-                 Recycle Bin
-
-            </h2>
-
-            <button
-
-                class="clear-btn"
-
-                (click)="emptyBin()"
-
-            >
-
+            <button class="clear-btn" (click)="emptyBin()">
                 Empty Bin
-
             </button>
 
         </div>
 
         <div
-
-            *ngFor="let task of deletedTasks; let i=index"
-
+            *ngFor="let task of deletedTasks; let i = index"
             class="bin-card"
-
         >
 
             <div>
-
                 <h4>{{ task.text }}</h4>
 
                 <small>
-
                     {{ task.createdAt }}
-
                 </small>
-
             </div>
 
             <button
-
                 class="restore-btn"
-
                 (click)="restoreTask(i)"
-
             >
-
                 Restore
-
             </button>
 
         </div>
 
-        <div
-
-            *ngIf="deletedTasks.length==0"
-
-            class="empty"
-
-        >
-
-            Recycle Bin is empty.
-
+        <!-- EMPTY BIN -->
+        <div *ngIf="deletedTasks.length === 0" class="empty">
+            Recycle Bin is empty 🗑
         </div>
 
     </div>
