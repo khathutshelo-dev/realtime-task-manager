@@ -15,6 +15,7 @@ export class RegisterComponent {
   name = '';
   email = '';
   password = '';
+  message = ''; // ✅ FIX HERE
 
   constructor(private auth: AuthService, private router: Router) {}
 
@@ -23,8 +24,14 @@ export class RegisterComponent {
       name: this.name,
       email: this.email,
       password: this.password
-    }).subscribe(() => {
-      this.router.navigate(['/login']);
+    }).subscribe({
+      next: () => {
+        this.message = 'Account created successfully ✔';
+        setTimeout(() => this.router.navigate(['/login']), 1000);
+      },
+      error: (err) => {
+        this.message = err.error.message || 'Registration failed';
+      }
     });
   }
 }
