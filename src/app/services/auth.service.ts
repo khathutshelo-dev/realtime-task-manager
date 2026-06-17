@@ -11,11 +11,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(data: any) {
-    return this.http.post(`${this.baseUrl}/auth/login`, data);
+ login(data: any) {
+  return this.http.post(`${this.baseUrl}/auth/login`, data);
+}
+
+register(data: any) {
+  return this.http.post(`${this.baseUrl}/auth/register`, data);
+}
   }
 
-  register(data: any) {
-    return this.http.post(`${this.baseUrl}/auth/register`, data);
-  }
-}
