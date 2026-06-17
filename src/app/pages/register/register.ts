@@ -20,19 +20,11 @@ export class RegisterComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   register() {
-    this.auth.register({
-      name: this.name,
-      email: this.email,
-      password: this.password
-    }).subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        this.message = err.error.message || 'Registration failed';
-      }
-    });
-  }
+  // TEMP REGISTER BYPASS (NO BACKEND)
+  localStorage.setItem("token", "demo-token");
+
+  this.router.navigate(['/dashboard']);
+}
 
   goLogin() {
     this.router.navigate(['/login']);
