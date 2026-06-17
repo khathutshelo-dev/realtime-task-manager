@@ -6,8 +6,12 @@
   <input type="email" placeholder="Email" [(ngModel)]="email">
   <input type="password" placeholder="Password" [(ngModel)]="password">
 
-  <button (click)="register()">Create Account</button>
+  <button type="button" (click)="register()">Register</button>
 
   <p>{{ message }}</p>
+
+  <p (click)="goLogin()" style="cursor:pointer; color:blue;">
+    Already have an account? Login
+  </p>
 
 </div>
