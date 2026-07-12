@@ -2,6 +2,8 @@
 
 A full-stack **real-time task management system** inspired by Trello and Notion, built to demonstrate modern backend architecture, WebSocket communication, and collaborative workflows.
 
+<a href="https://realtime-task-manager-2.onrender.com">LIVE DEMO</a>
+
 This project enables multiple users to manage tasks in shared boards with **instant live updates**, drag-and-drop organization, and real-time synchronization across clients.
 
 
